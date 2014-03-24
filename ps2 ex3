@@ -1,0 +1,45 @@
+balance = 320000
+
+annualInterestRate = 0.2
+monthlyInterestRate = annualInterestRate/12 
+low = balance/12
+high = (balance * (1 + monthlyInterestRate)**12)/12
+x = high
+ans = (low + high)/2
+epsilon = 0.01
+i = 0
+months = 12
+monthlyUnpaidBalance = 0
+minimumPayment = ans
+def compoundInterest(y, z):
+  '''
+  this function will calculate the compound interest
+  x = monthlyUnpaidBalance
+  y = Balance
+  z = minimumMonthlyPayment
+  
+  '''
+  totalInterest = 0
+  x = 0
+  j = 0
+  while j < months:
+    x = y - z
+    y = x + monthlyInterestRate * x
+    totalInterest = monthlyInterestRate * x
+    j += 1
+    
+  return(y + totalInterest)
+
+while abs(ans * 12 - compoundInterest(balance, minimumPayment)) >= epsilon:
+  
+  print('low = ' + str(low) + ' high = ' + str(high) + ' ans = ' + str(ans))
+  #for x in months:
+    #monthlyUnpaidBalance = balance - ans
+    #balance = monthlyUnpaidBalance + monthlyInterestRate * monthlyUnpaidBalance
+  if ans < x:
+    low = ans
+  else:
+    high = ans
+  ans = (high + low)/2.0
+  minimumPayment = ans
+#print (round(ans, 2))
